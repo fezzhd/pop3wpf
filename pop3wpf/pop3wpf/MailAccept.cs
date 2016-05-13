@@ -6,8 +6,12 @@ using System.Net.Sockets;
 using System.Security.Authentication;
 using System.Security.RightsManagement;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Threading;
 
 namespace pop3wpf
 {
@@ -18,11 +22,17 @@ namespace pop3wpf
         private string _user;
         public static SslStream MailSslStream;
         private byte[] _bufferBytes = new byte[8172];
-        public MailAccept(string serverName, string user, string password)
+        public static List<MailList> MailList { get; set; }
+        private MainWindow _window;
+        private ListBox _box;
+
+        public MailAccept(string serverName, string user, string password, MainWindow window, ListBox box)
         {
             _serverName = serverName;
             _user = user;
             _password = password;
+            _window = window;
+            _box = box;
         }
 
 
@@ -68,13 +78,20 @@ namespace pop3wpf
                     {
                        Messages messagesAction = new Messages();
                        int messageCount = messagesAction.GetMessageCount();
-                        if (messageCount == -1 || messageCount < 0)
+                        if (messageCount < 0)
                         { 
                             return;
                         }
                         else
                         {
+                            MailList = new List<MailList>();
                             //todo: continue from here
+                            MailList = messagesAction.GetMessageList(messageCount);
+                            _window.Dispatcher.Invoke(new ThreadStart(delegate
+                            {
+                                messagesAction.PrintList(MailList, _box);
+                            }));
+                 
                         }
                     }
                     else

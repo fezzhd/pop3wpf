@@ -8,15 +8,13 @@ namespace pop3wpf
 {
     class MailList
     {
-        private string _time;
-        private string _topic;
-        private string _fromWho;
+        public string _time { get; set; }
+        public string _fromWho { get; set; }
 
 
-        public MailList(string time, string topic, string fromWho)
+        public MailList(string time, string fromWho)
         {
             _time = time;
-            _topic = topic;
             _fromWho = fromWho;
         }
 

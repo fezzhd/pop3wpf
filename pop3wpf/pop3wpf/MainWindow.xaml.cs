@@ -35,9 +35,11 @@ namespace pop3wpf
 
         private void EnterButton_Click(object sender, RoutedEventArgs e)
         {
-            MailAccept mailAccept = new MailAccept(_mailServerList[MailServer.SelectedIndex], Mail.Text, Password.Password);
+            MailAccept mailAccept = new MailAccept(_mailServerList[MailServer.SelectedIndex], Mail.Text, Password.Password, MainForm, MailListBox);
             MainThread = new Thread(mailAccept.LogIn);
             MainThread.Start();
+
+           
         }
     }
 }

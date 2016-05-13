@@ -9,14 +9,13 @@
         </ComboBox>
         <TextBox x:Name="Mail" Height="23" Margin="0,86,10,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Right" MinWidth="120"/>
         <PasswordBox x:Name="Password" Margin="0,145,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" MinWidth="120"/>
-        <Grid x:Name="ListBoxGrid" HorizontalAlignment="Left" MinWidth="250">
-            <ListBox x:Name="MailListBox" ItemsSource="{Binding}">
+        <Grid x:Name="ListBoxGrid" HorizontalAlignment="Left" Width="300">
+            <ListBox x:Name="MailListBox" Width="300">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
                             <TextBlock Text = "{Binding Path = _time}" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
-                            <TextBlock Text = "{Binding Path = _topic}" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                            <TextBlock Text = "{Binding Path = _fromWho}" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                            <TextBlock Text = "{Binding Path = _fromWho}" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
