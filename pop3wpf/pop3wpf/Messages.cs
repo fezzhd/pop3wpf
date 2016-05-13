@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace pop3wpf
@@ -62,6 +63,20 @@ namespace pop3wpf
         public void PrintList(List<MailList> list, ListBox listBox)
         {
             listBox.ItemsSource = list;
+        }
+
+        public void DeleteMessage(int index, int messageCount)
+        {
+            index++;
+            int realIndex = messageCount - index;
+            MailAccept.MailSslStream.Write(Encoding.ASCII.GetBytes("DELE " + realIndex + "\r\n"));
+            int readBytes = MailAccept.MailSslStream.Read(bufferBytes, 0, bufferBytes.Length);
+            string resultAnswer = Encoding.ASCII.GetString(bufferBytes, 0, readBytes);
+            if (!resultAnswer.Contains("+OK"))
+            {
+                MessageBox.Show(resultAnswer);
+            }
+
         }
     }
 }

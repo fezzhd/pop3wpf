@@ -21,10 +21,10 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
-        <Button x:Name="EnterButton" Content="Войти" HorizontalAlignment="Right" Margin="0,181,10,0" VerticalAlignment="Top" Width="120" Click="EnterButton_Click"/>
+        <Button x:Name="EnterButton" Content="Войти" HorizontalAlignment="Right" Margin="0,181,10,0" VerticalAlignment="Top" Width="120" Click="EnterButton_Click" Height="24"/>
         <Label x:Name="ServerName" Content="Сервер" HorizontalAlignment="Right" Margin="0,5,80,0" VerticalAlignment="Top"/>
         <Label x:Name="NameLabel" Content="Ящик" HorizontalAlignment="Right" Margin="0,58,90,0" VerticalAlignment="Top"/>
         <Label x:Name="PasswordLable" Content="Пароль" HorizontalAlignment="Right" Margin="0,114,79,0" VerticalAlignment="Top"/>
-        <Button x:Name="DeleteButton" Content="Удалить" HorizontalAlignment="Left" Margin="325,0,0,28" VerticalAlignment="Bottom" Width="75" Height="25" IsEnabled="False" />
+        <Button x:Name="DeleteButton" Content="Удалить" HorizontalAlignment="Left" Margin="325,0,0,28" VerticalAlignment="Bottom" Width="75" Height="25" IsEnabled="False" Click="DeleteButton_Click" />
     </Grid>
 </Window>
