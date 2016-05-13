@@ -25,6 +25,7 @@ namespace pop3wpf
         public static List<MailList> MailList { get; set; }
         private MainWindow _window;
         private ListBox _box;
+        public int MessageCount { get; set; }
 
         public MailAccept(string serverName, string user, string password, MainWindow window, ListBox box)
         {
@@ -77,8 +78,8 @@ namespace pop3wpf
                     if (data.Contains("+OK"))
                     {
                        Messages messagesAction = new Messages();
-                       int messageCount = messagesAction.GetMessageCount();
-                        if (messageCount < 0)
+                       MessageCount = messagesAction.GetMessageCount();
+                        if (MessageCount < 0)
                         { 
                             return;
                         }
@@ -86,10 +87,11 @@ namespace pop3wpf
                         {
                             MailList = new List<MailList>();
                             //todo: continue from here
-                            MailList = messagesAction.GetMessageList(messageCount);
+                            MailList = messagesAction.GetMessageList(MessageCount);
                             _window.Dispatcher.Invoke(new ThreadStart(delegate
                             {
                                 messagesAction.PrintList(MailList, _box);
+                                _window.EnterButton.IsEnabled = true;
                             }));
                  
                         }

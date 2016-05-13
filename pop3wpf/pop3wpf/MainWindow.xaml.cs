@@ -23,6 +23,8 @@ namespace pop3wpf
     {
         public static Thread MainThread;
         List<string> _mailServerList;
+        private MailAccept _mailAccept;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -35,11 +37,26 @@ namespace pop3wpf
 
         private void EnterButton_Click(object sender, RoutedEventArgs e)
         {
-            MailAccept mailAccept = new MailAccept(_mailServerList[MailServer.SelectedIndex], Mail.Text, Password.Password, MainForm, MailListBox);
-            MainThread = new Thread(mailAccept.LogIn);
+            EnterButton.IsEnabled = false;
+            _mailAccept = new MailAccept(_mailServerList[MailServer.SelectedIndex], Mail.Text, Password.Password, MainForm, MailListBox);
+            MainThread = new Thread(_mailAccept.LogIn);
             MainThread.Start();
 
            
+        }
+
+        private void MailListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (MailListBox.SelectedIndex != -1)
+            {
+                DeleteButton.IsEnabled = true;
+            }
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            Messages deleteMessages = new Messages();
+            deleteMessages.DeleteMessage(MailListBox.SelectedIndex,_mailAccept.MessageCount);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace pop3wpf
     class Messages
     {
         byte[] bufferBytes = new byte[8127];
-        private uint _currentCount = 0;
+
 
         public int GetMessageCount()
         {
@@ -24,7 +24,7 @@ namespace pop3wpf
                 data = data.Remove(0, 4);
                 string[] parsedArgiments = data.Split(' ');
                 int result; 
-                Int32.TryParse(parsedArgiments[0], out result);
+                int.TryParse(parsedArgiments[0], out result);
                 return result;
             }
             else

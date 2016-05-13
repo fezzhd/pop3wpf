@@ -10,7 +10,7 @@
         <TextBox x:Name="Mail" Height="23" Margin="0,86,10,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Right" MinWidth="120"/>
         <PasswordBox x:Name="Password" Margin="0,145,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" MinWidth="120"/>
         <Grid x:Name="ListBoxGrid" HorizontalAlignment="Left" Width="300">
-            <ListBox x:Name="MailListBox" Width="300">
+            <ListBox x:Name="MailListBox" Width="300" SelectionChanged="MailListBox_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
@@ -25,5 +25,6 @@
         <Label x:Name="ServerName" Content="Сервер" HorizontalAlignment="Right" Margin="0,5,80,0" VerticalAlignment="Top"/>
         <Label x:Name="NameLabel" Content="Ящик" HorizontalAlignment="Right" Margin="0,58,90,0" VerticalAlignment="Top"/>
         <Label x:Name="PasswordLable" Content="Пароль" HorizontalAlignment="Right" Margin="0,114,79,0" VerticalAlignment="Top"/>
+        <Button x:Name="DeleteButton" Content="Удалить" HorizontalAlignment="Left" Margin="325,0,0,28" VerticalAlignment="Bottom" Width="75" Height="25" IsEnabled="False" />
     </Grid>
 </Window>
