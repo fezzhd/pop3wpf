@@ -22,7 +22,7 @@ namespace pop3wpf
     public partial class MainWindow : Window
     {
         public static Thread MainThread;
-        List<string> _mailServerList;
+        private List<string> _mailServerList;
         private MailAccept _mailAccept;
 
         public MainWindow()
@@ -39,10 +39,12 @@ namespace pop3wpf
         {
             EnterButton.IsEnabled = false;
             _mailAccept = new MailAccept(_mailServerList[MailServer.SelectedIndex], Mail.Text, Password.Password, MainForm, MailListBox);
+            if (_mailAccept.IsConected)
+            {
+                _mailAccept.LogOut();
+            }
             MainThread = new Thread(_mailAccept.LogIn);
             MainThread.Start();
-
-           
         }
 
         private void MailListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -56,7 +58,18 @@ namespace pop3wpf
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             Messages deleteMessages = new Messages();
-            deleteMessages.DeleteMessage(MailListBox.SelectedIndex,_mailAccept.MessageCount);
+            deleteMessages.DeleteMessage(MailListBox.SelectedIndex, _mailAccept.MessageCount);  
+            _mailAccept.MailList.RemoveAt(MailListBox.SelectedIndex);                
+            MailListBox.Items.Refresh();
+            _mailAccept.MessageCount = deleteMessages.GetMessageCount();
+        }
+
+        private void MainForm_Closed(object sender, EventArgs e)
+        {
+            if ((_mailAccept != null) && (_mailAccept.IsConected))
+            {
+                _mailAccept.LogOut();
+            }
         }
     }
 }

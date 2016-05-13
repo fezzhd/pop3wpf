@@ -1,7 +1,7 @@
 ﻿<Window x:Name="MainForm" x:Class="pop3wpf.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="POP3 Mail Client" Height="424.08" Width="647.393">
+        Title="POP3 Mail Client" Height="424.08" Width="647.393" Closed="MainForm_Closed">
     <Grid x:Name="MainGrid">
         <ComboBox x:Name="MailServer" HorizontalAlignment="Right" Margin="0,31,10,0" Width="120" SelectedIndex="0" VerticalAlignment="Top" IsReadOnly="True">
             <TextBlock>Mail.ru</TextBlock>

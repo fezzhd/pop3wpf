@@ -45,7 +45,7 @@ namespace pop3wpf
         }
 
 
-        private MailList GetMessageInfo(int index)
+        public MailList GetMessageInfo(int index)
         {
             string result = "";
             MailAccept.MailSslStream.Write(Encoding.ASCII.GetBytes("TOP " + index + " 0\r\n"));
@@ -67,7 +67,6 @@ namespace pop3wpf
 
         public void DeleteMessage(int index, int messageCount)
         {
-            index++;
             int realIndex = messageCount - index;
             MailAccept.MailSslStream.Write(Encoding.ASCII.GetBytes("DELE " + realIndex + "\r\n"));
             int readBytes = MailAccept.MailSslStream.Read(bufferBytes, 0, bufferBytes.Length);
@@ -76,7 +75,6 @@ namespace pop3wpf
             {
                 MessageBox.Show(resultAnswer);
             }
-
         }
     }
 }

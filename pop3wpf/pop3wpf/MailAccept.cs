@@ -22,10 +22,11 @@ namespace pop3wpf
         private string _user;
         public static SslStream MailSslStream;
         private byte[] _bufferBytes = new byte[8172];
-        public static List<MailList> MailList { get; set; }
+        public List<MailList> MailList { get; set; }
         private MainWindow _window;
         private ListBox _box;
         public int MessageCount { get; set; }
+        public bool IsConected { get; set; }
 
         public MailAccept(string serverName, string user, string password, MainWindow window, ListBox box)
         {
@@ -47,6 +48,7 @@ namespace pop3wpf
                 int readedBytes = MailSslStream.Read(_bufferBytes, 0, _bufferBytes.Length);
                 if (Encoding.ASCII.GetString(_bufferBytes, 0, readedBytes).Contains("+OK"))
                 {
+                    IsConected = true;
                     CheckLogIn(); 
                 }
                 else
@@ -99,19 +101,29 @@ namespace pop3wpf
                     else
                     {
                         MessageBox.Show(@"Неверный пароль");
-                        return;
                     }
                 }
                 else
                 {
                     MessageBox.Show(@"Неверный логин");
-                    return;
                 }
             }
             catch (Exception)
             {
                 MessageBox.Show(@"Ой всё"); 
-                return;
+            }
+            MainWindow.MainThread.Abort();
+        }
+
+
+        public void LogOut()
+        {
+            MailSslStream.Write(Encoding.ASCII.GetBytes("QUIT\r\n"));
+            int bytesRead = MailSslStream.Read(_bufferBytes, 0, _bufferBytes.Length);
+            string result = Encoding.ASCII.GetString(_bufferBytes, 0, bytesRead);
+            if (!result.Contains("+OK"))
+            {
+                MessageBox.Show(result);
             }
         }
 
