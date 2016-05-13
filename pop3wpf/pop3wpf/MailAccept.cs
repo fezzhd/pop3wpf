@@ -112,6 +112,10 @@ namespace pop3wpf
             {
                 MessageBox.Show(@"Ой всё"); 
             }
+            _window.Dispatcher.Invoke(new ThreadStart(delegate
+            {
+                _window.EnterButton.IsEnabled = true;
+            }));
             MainWindow.MainThread.Abort();
         }
 
